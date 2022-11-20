@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <PackageVersion>1.0.12</PackageVersion>
+    <PackageVersion>1.0.13</PackageVersion>
     <AssemblyVersion>$(PackageVersion)</AssemblyVersion>
     <TargetFrameworks>netstandard2.0;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>

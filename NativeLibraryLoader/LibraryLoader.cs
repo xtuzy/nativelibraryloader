@@ -175,7 +175,12 @@ namespace NativeLibraryLoader
             {
                 return new UnixLibraryLoader();
             }
-
+#if IOS || MACCATALYST
+            else if (OperatingSystem.IsIOS() || OperatingSystem.IsMacCatalyst())
+            {
+                return new iOSLibraryLoader();
+            }
+#endif
             throw new PlatformNotSupportedException("This platform cannot load native libraries.");
         }
 
@@ -214,5 +219,25 @@ namespace NativeLibraryLoader
                 return Libdl.dlopen(name, Libdl.RTLD_NOW);
             }
         }
+
+#if IOS || MACCATALYST
+        private class iOSLibraryLoader : LibraryLoader
+        {
+            protected override void CoreFreeNativeLibrary(IntPtr handle)
+            {
+                ObjCRuntime.Dlfcn.dlclose(handle);
+            }
+
+            protected override IntPtr CoreLoadFunctionPointer(IntPtr handle, string functionName)
+            {
+                return ObjCRuntime.Dlfcn.dlsym(handle, functionName);
+            }
+
+            protected override IntPtr CoreLoadNativeLibrary(string name)
+            {
+                return ObjCRuntime.Dlfcn.dlopen(name, 2);
+            }
+        }
+#endif
     }
 }
