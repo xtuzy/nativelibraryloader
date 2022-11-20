@@ -13,4 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.0.3" />
   </ItemGroup>
+  <PropertyGroup>
+    <PackageId>Veldrid.Maui.NativeLibraryLoader</PackageId>
+  </PropertyGroup>
 </Project>
