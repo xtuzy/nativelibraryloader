@@ -5,7 +5,14 @@ namespace NativeLibraryLoader
 {
     internal static class Libdl
     {
+#if IOS || MACCATALYST
+        //change according to:
+        //https://github.com/xamarin/xamarin-macios/blob/main/src/ObjCRuntime/Dlfcn.cs
+        //https://github.com/xamarin/xamarin-macios/blob/main/src/ObjCRuntime/Constants.cs
+        private const string LibName = "/usr/lib/libSystem.dylib";
+#else
         private const string LibName = "libdl";
+#endif
 
         public const int RTLD_NOW = 0x002;
 
